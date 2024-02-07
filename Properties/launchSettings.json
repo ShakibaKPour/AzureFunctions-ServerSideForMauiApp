@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "AzureFunction_RepRepair": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7247",
+      "launchBrowser": false
+    }
+  }
+}
