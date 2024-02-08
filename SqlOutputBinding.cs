@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using AzureFunction_RepRepair.Models;
+using System.Diagnostics.Eventing.Reader;
 
 namespace AzureFunction_RepRepair
 {
@@ -24,35 +26,22 @@ namespace AzureFunction_RepRepair
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             ReportInfo? reportData = JsonConvert.DeserializeObject<ReportInfo>(requestBody);
             //reportData.ReportId= Guid.NewGuid();
-
             if (reportData == null)
             {
-                return null;
+                return new OutputType() { ReportInfo = null, HttpResponse= req.CreateResponse(System.Net.HttpStatusCode.BadRequest)};
             }
-            return new OutputType()
-            {
-                ReportInfo = reportData,
-                HttpResponse = req.CreateResponse(System.Net.HttpStatusCode.Created)
-            };
+                return new OutputType()
+                {
+                    ReportInfo = reportData,
+                    HttpResponse = req.CreateResponse(System.Net.HttpStatusCode.Created)
+                };
+        }
+
+        public class OutputType
+        {
+            [SqlOutput("dbo.ReportDetails", connectionStringSetting: "ConnectionString")]
+            public ReportInfo ReportInfo { get; set; }
+            public HttpResponseData HttpResponse { get; set; }
         }
     }
-
-    public class OutputType
-    {
-        [SqlOutput("dbo.ReportDetails", connectionStringSetting: "ConnectionString")]
-        public ReportInfo ReportInfo { get; set; }
-        public HttpResponseData HttpResponse { get; set; }
-    }
-
-    public class ReportInfo
-    {
-        public int ReportDetailsId { get; set; }
-        public int ObjectId { get; set; }
-        public string? OriginalFaultReport { get; set; }
-        public string? TranslatedFaultReport { get; set; }
-        //public DateTime ReportDate { get; set; }
-        public string? SelectedLanguage { get; set; }
-        public string? TypeOfReport { get; set; } //or public list<TypeOfReport> typeOfReport {get; set} = new();
-    }
-
 }

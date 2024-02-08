@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace AzureFunction_RepRepair.Models;
 
-namespace AzureFunction_RepRepair.Models
+public class Inventory
 {
-    public class Inventory
-    {
-        public int ObjectId { get; set; }
-        public string QRCode { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
+    public int ObjectId { get; set; }
+    public string QRCode { get; set; }
+    public string Name { get; set; }
+    public string Location { get; set; }
 
-    }
-
-    //public class Inventory
-    //{
-    //    // public int ID { get; set; }
-    //    public Guid QRCode { get; set; }
-    //    public string Name { get; set; }
-    //    public string Location { get; set; }
-
-    //}
 }
+
+//public class Inventory
+//{
+//    // public int ID { get; set; }
+//    public Guid QRCode { get; set; }
+//    public string Name { get; set; }
+//    public string Location { get; set; }
+
+//}

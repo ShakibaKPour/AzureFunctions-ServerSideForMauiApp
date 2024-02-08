@@ -3,15 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Extensions.Sql;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
-using System.Data;
 
 namespace AzureFunction_RepRepair
 {
     public static class SqlInputBinding
     {
-        //TODO : Implement the cast from nvarchar to uniqueidentifier
         [Function("GetObjectInfoByQRCode")]
         public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="getobjectinfo/qrcode/{QRCode}")]
@@ -96,4 +92,3 @@ namespace AzureFunction_RepRepair
 //        return new OkObjectResult(inventoryItem);
 //    }
 //}
-
