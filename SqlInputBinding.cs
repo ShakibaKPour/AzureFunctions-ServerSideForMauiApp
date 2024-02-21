@@ -13,7 +13,7 @@ namespace AzureFunction_RepRepair
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route ="getobjectinfo/qrcode/{QRCode}")]
             HttpRequest req,
             string QrCode,
-            [SqlInput(commandText:"GetInventoryObjectByQRCode",
+            [SqlInput(commandText:"Scan.GetInventoryByQRCode",
             commandType: System.Data.CommandType.StoredProcedure,
             parameters:"@QrCode ={QrCode}",
             connectionStringSetting:"ConnectionString")]
@@ -26,5 +26,6 @@ namespace AzureFunction_RepRepair
             }
             return new OkObjectResult(result);
         }
+
     }
 }
