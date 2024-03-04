@@ -5,20 +5,28 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using AzureFunction_RepRepair.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AzureFunction_RepRepair
 {
     public static class SqlOutputBindingFunction
     {
 
-        [Function("InsertReportInfo")]
+    [Function("InsertReportInfo")]
         public static async Task<OutputType> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestData req,
             FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("PostFunction");
             logger.LogInformation("C# HTTP trigger function processed a request.");
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+
+            var principal = req.Identities.FirstOrDefault(); // This is the principal set by Azure AD
+            if (principal != null)
+            {
+                var userId = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                logger.LogInformation($"UserId: {userId}");
+            }
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             ReportInfo? reportData = JsonConvert.DeserializeObject<ReportInfo>(requestBody);
             if (reportData == null)
             {
