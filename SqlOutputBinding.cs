@@ -14,7 +14,7 @@ namespace AzureFunction_RepRepair
 
     [Function("InsertReportInfo")]
         public static async Task<OutputType> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequestData req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequestData req,
             FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("PostFunction");

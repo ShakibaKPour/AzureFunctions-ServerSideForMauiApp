@@ -15,7 +15,7 @@ namespace AzureFunction_RepRepair
         
         [Function("GetReportTypes")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetReportTypes")] HttpRequestData req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetReportTypes")] HttpRequestData req,
             [SqlInput("SELECT * FROM [Scan].[ReportTypes]",
             "ConnectionString")]
             IEnumerable<ReportType> reports)

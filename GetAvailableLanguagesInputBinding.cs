@@ -16,7 +16,7 @@ namespace AzureFunction_RepRepair
     {
         [Function("GetAvailableLanguagesInputBinding")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetAvailableLanguagesInputBinding")] HttpRequestData req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetAvailableLanguagesInputBinding")] HttpRequestData req,
             [SqlInput("SELECT * FROM [Scan].[Languages]",
             "ConnectionString")] IEnumerable<Languages> languages)
         {
