@@ -6,7 +6,7 @@ using Microsoft.Azure.Functions.Worker.Extensions.Sql;
 
 namespace AzureFunction_RepRepair
 {
-    public static class SqlInputBinding
+    public static class GetObjectByQRCode
     {
         [Function("GetObjectByQRCode")]
         public static IActionResult Run(
